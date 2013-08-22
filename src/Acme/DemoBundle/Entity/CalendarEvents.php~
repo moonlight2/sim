@@ -1,0 +1,95 @@
+<?php
+
+namespace Acme\DemoBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CalendarEvents
+ *
+ * @ORM\Table(name="calendar_events")
+ * @ORM\Entity
+ */
+class CalendarEvents
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="text", type="text", nullable=false)
+     */
+    private $text;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="start", type="datetime", nullable=false)
+     */
+    private $start;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="end", type="datetime", nullable=false)
+     */
+    private $end;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_shown", type="boolean", nullable=false)
+     */
+    private $isShown;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="all_day", type="boolean", nullable=false)
+     */
+    private $allDay;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=255, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_shared", type="boolean", nullable=false)
+     */
+    private $isShared;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Acme\DemoBundle\Entity\Account", mappedBy="calendarevent")
+     */
+    private $account;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->account = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

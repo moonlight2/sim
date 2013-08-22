@@ -1,0 +1,187 @@
+<?php
+
+namespace Acme\DemoBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Account
+ *
+ * @ORM\Table(name="account")
+ * @ORM\Entity
+ */
+class Account
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=32, nullable=false)
+     */
+    private $salt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=60, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="city_id", type="integer", nullable=false)
+     */
+    private $cityId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="country_id", type="integer", nullable=false)
+     */
+    private $countryId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="registered", type="datetime", nullable=false)
+     */
+    private $registered;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_active", type="boolean", nullable=false)
+     */
+    private $isActive;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="about", type="text", nullable=true)
+     */
+    private $about;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+     */
+    private $lastName;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_leader", type="boolean", nullable=false)
+     */
+    private $isLeader;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Acme\DemoBundle\Entity\Photo
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\DemoBundle\Entity\Photo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="photoLike_id", referencedColumnName="id")
+     * })
+     */
+    private $photolike;
+
+    /**
+     * @var \Acme\DemoBundle\Entity\Mygroup
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\DemoBundle\Entity\Mygroup")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     * })
+     */
+    private $group;
+
+    /**
+     * @var \Acme\DemoBundle\Entity\PhotoComments
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\DemoBundle\Entity\PhotoComments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="photoCommentLike_id", referencedColumnName="id")
+     * })
+     */
+    private $photocommentlike;
+
+    /**
+     * @var \Acme\DemoBundle\Entity\Account
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\DemoBundle\Entity\Account")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="following_id", referencedColumnName="id")
+     * })
+     */
+    private $following;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Acme\DemoBundle\Entity\Role", inversedBy="account")
+     * @ORM\JoinTable(name="account_role",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="account_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $role;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Acme\DemoBundle\Entity\CalendarEvents", inversedBy="account")
+     * @ORM\JoinTable(name="account_calendarevent",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="account_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="calendarevent_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $calendarevent;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->role = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calendarevent = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

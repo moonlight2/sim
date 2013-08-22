@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\DemoBundle\Entity\CalendarEvents" table="calendar_events">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="title" type="string" column="title" length="255" nullable="true"/>
+    <field name="text" type="text" column="text" nullable="false"/>
+    <field name="start" type="datetime" column="start" nullable="false"/>
+    <field name="end" type="datetime" column="end" nullable="false"/>
+    <field name="isShown" type="boolean" column="is_shown" nullable="false"/>
+    <field name="allDay" type="boolean" column="all_day" nullable="false"/>
+    <field name="color" type="string" column="color" length="255" nullable="true"/>
+    <field name="isShared" type="boolean" column="is_shared" nullable="false"/>
+    <many-to-many field="account" target-entity="Account" mapped-by="calendarevent"/>
+  </entity>
+</doctrine-mapping>

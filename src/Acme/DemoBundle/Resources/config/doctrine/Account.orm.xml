@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\DemoBundle\Entity\Account" table="account">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="username" type="string" column="username" length="255" nullable="true"/>
+    <field name="salt" type="string" column="salt" length="32" nullable="false"/>
+    <field name="email" type="string" column="email" length="60" nullable="false"/>
+    <field name="cityId" type="integer" column="city_id" nullable="false"/>
+    <field name="countryId" type="integer" column="country_id" nullable="false"/>
+    <field name="registered" type="datetime" column="registered" nullable="false"/>
+    <field name="isActive" type="boolean" column="is_active" nullable="false"/>
+    <field name="password" type="string" column="password" length="255" nullable="false"/>
+    <field name="about" type="text" column="about" nullable="true"/>
+    <field name="firstName" type="string" column="first_name" length="255" nullable="false"/>
+    <field name="lastName" type="string" column="last_name" length="255" nullable="false"/>
+    <field name="isLeader" type="boolean" column="is_leader" nullable="false"/>
+    <many-to-one field="photolike" target-entity="Photo">
+      <join-columns>
+        <join-column name="photoLike_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="group" target-entity="Mygroup">
+      <join-columns>
+        <join-column name="group_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="photocommentlike" target-entity="PhotoComments">
+      <join-columns>
+        <join-column name="photoCommentLike_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="following" target-entity="Account">
+      <join-columns>
+        <join-column name="following_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="role" target-entity="Role" inversed-by="account">
+      <join-table name="account_role">
+        <join-columns>
+          <join-column name="account_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="role_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="calendarevent" target-entity="CalendarEvents" inversed-by="account">
+      <join-table name="account_calendarevent">
+        <join-columns>
+          <join-column name="account_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="calendarevent_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>
